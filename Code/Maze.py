@@ -8,11 +8,14 @@ class Maze:
 
     def __init__(self, size):
         self._size = size
-        self._matrix_maze = [[0 for j in range(0, self.get_size())]  for i in range(0,self.get_size())]
+        self._matrix_maze = [[Node(0, 0, x, y) for y in range(self._size)] for x in range(self._size)]
+
+    def __getitem__(self, index):
+        return self._matrix_maze[index]
+    
+    def __setitem__(self, index, value):
+        self._matrix[index] = value
         
-        for i in range(0,size):
-            for j in range(0,size):
-                self._matrix_maze[i][j] = Node(0,0,i,j)
 
     def get_size(self) -> int:
         return self._size

@@ -1,16 +1,16 @@
 class Node:
-    temp_weight: float
+    weight: float
     value: int
     position_x: int
     position_y: int
     name: str
 
     def __init__(self, weight: float, value: int, x: int, y: int):
-        self.name = f"{x},{y}"
-        self.temp_weight = weight
+        self.weight = weight
         self.value = value
         self.position_x = x
         self.position_y = y
+        self.name = f"{self.position_x},{self.position_y}"
     
     
     def __hash__(self):
