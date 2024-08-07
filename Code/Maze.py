@@ -1,4 +1,5 @@
 import random
+from Node import Node
 
 class Maze:
 
@@ -7,15 +8,19 @@ class Maze:
 
     def __init__(self, size):
         self._size = size
-        self._matrix_maze = [[ 0 for j in range(0, self.get_size())]  for i in range(0,self.get_size())]
+        self._matrix_maze = [[0 for j in range(0, self.get_size())]  for i in range(0,self.get_size())]
+        
+        for i in range(0,size):
+            for j in range(0,size):
+                self._matrix_maze[i][j] = Node(0,0,i,j)
 
     def get_size(self) -> int:
         return self._size
     
     def print_maze(self):
-        for l in self._matrix_maze:
-            for num in l:
-                print(f"{num}   ",end="",)
+        for line in self._matrix_maze:
+            for node in line:
+                print(f"{node.name} => {node.value}",end="  ",)
             print()
     
     
@@ -31,7 +36,7 @@ class Maze:
 
             if aux_dict.get((line_num,column_num)) != True:
                 cont += 1
-                self._matrix_maze[line_num][column_num] = -1
+                self._matrix_maze[line_num][column_num].value = -1
                 
          
 
@@ -41,4 +46,4 @@ if __name__ == "__main__":
 
     labirinto.generate_obstacles()
     labirinto.print_maze()
-    
+     
