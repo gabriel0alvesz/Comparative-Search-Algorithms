@@ -28,19 +28,20 @@ class Generate:
 
         for i in range(0,self.size_maze):
             for j in range(0,self.size_maze):
-               node = self.positions_node[(i, j)]
-            if i > 0:  # acima
-                neighbor = self.positions_node[(i - 1, j)]
-                self.maze_graph.add_edge(node, neighbor)
-            if i < self.size_maze-1:  # abaixo
-                neighbor = self.positions_node[(i + 1, j)]
-                self.maze_graph.add_edge(node, neighbor)
-            if j > 0:  # esquerda
-                neighbor = self.positions_node[(i, j - 1)]
-                self.maze_graph.add_edge(node, neighbor)
-            if j < self.size_maze-1:  # direita
-                neighbor = self.positions_node[(i, j + 1)]
-                self.maze_graph.add_edge(node, neighbor)
+                node = self.positions_node[(i, j)]
+
+                if i > 0:  # acima
+                    neighbor = self.positions_node[(i - 1, j)]
+                    self.maze_graph.add_edge(node, neighbor)
+                if i < self.size_maze-1:  # abaixo
+                    neighbor = self.positions_node[(i + 1, j)]
+                    self.maze_graph.add_edge(node, neighbor)
+                if j > 0:  # esquerda
+                    neighbor = self.positions_node[(i, j - 1)]
+                    self.maze_graph.add_edge(node, neighbor)
+                if j < self.size_maze-1:  # direita
+                    neighbor = self.positions_node[(i, j + 1)]
+                    self.maze_graph.add_edge(node, neighbor)
     
     def print_graph(self):
         
