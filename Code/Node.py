@@ -5,8 +5,9 @@ class Node:
     position_y: int
     name: str
 
-    def __init__(self, weight: float, x: int, y: int):
+    def __init__(self, weight: float, obs: int, x: int, y: int):
         self.weight = weight 
+        self.obstacle = obs
         self.position_x = x
         self.position_y = y
         self.name = f"{self.position_x},{self.position_y}"
@@ -21,3 +22,6 @@ class Node:
     
     def __str__(self):
         return f"(x:{self.position_x}, y:{self.position_y})"
+    
+    def name_main(self) -> str:
+        return f"{self.position_x},{self.position_y}\n{self.obstacle}"

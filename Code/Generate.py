@@ -18,7 +18,7 @@ class Generate:
     def generate_graph(self):
         
         self.maze_matrix.generate_obstacles() # gera os obstaculos da matriz
-        self.maze_matrix.print_maze()
+        # self.maze_matrix.print_maze()
 
         for i in range(0, self.size_maze):
             for j in range(0, self.size_maze):
@@ -50,10 +50,10 @@ class Generate:
         
         # Necessário usar desta forma as posições devido ao matplotlib
         pos = {node: (node.position_y, -node.position_x) for node in self.maze_graph.nodes}
-        labels = {node: node.name for node in self.maze_graph.nodes}
+        labels = {node: node.name_main() for node in self.maze_graph.nodes}
         edge_labels = nx.get_edge_attributes(self.maze_graph, 'weight')
 
-        nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=700, node_color='skyblue', font_size=10, font_color='black')
+        nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=500, node_color='skyblue', font_size=8, font_color='black')
         nx.draw_networkx_edge_labels(self.maze_graph, pos, edge_labels=edge_labels)
         
         plt.savefig("assets/matrix_to_graph.png")

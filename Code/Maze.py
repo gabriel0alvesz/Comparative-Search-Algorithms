@@ -8,7 +8,7 @@ class Maze:
 
     def __init__(self, size):
         self._size = size
-        self._matrix_maze = [[Node(0, x, y) for y in range(self._size)] for x in range(self._size)]
+        self._matrix_maze = [[Node(0, 0, x, y) for y in range(self._size)] for x in range(self._size)]
 
     def __getitem__(self, index):
         return self._matrix_maze[index]
@@ -23,7 +23,7 @@ class Maze:
     def print_maze(self):
         for line in self._matrix_maze:
             for node in line:
-                print(f"{node.name}",end="  ",)
+                print(f"{node.name_main()}",end="  ",)
             print()
     
     
@@ -41,8 +41,7 @@ class Maze:
                 cont += 1
                 
                 ## Como fazer o nó que será obstaculo, assumir o -1 e o name alterar
-                temp_node: Node = Node(0,line_num,column_num);
-                temp_node.obstacle = -1;
+                temp_node: Node = Node(0, -1, line_num,column_num);
                 self._matrix_maze[line_num][column_num] = temp_node
                 
                 
