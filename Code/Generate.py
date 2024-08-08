@@ -17,6 +17,9 @@ class Generate:
     
     def generate_graph(self):
         
+        self.maze_matrix.generate_obstacles() # gera os obstaculos da matriz
+        self.maze_matrix.print_maze()
+
         for i in range(0, self.size_maze):
             for j in range(0, self.size_maze):
                
@@ -50,7 +53,7 @@ class Generate:
         labels = {node: node.name for node in self.maze_graph.nodes}
         edge_labels = nx.get_edge_attributes(self.maze_graph, 'weight')
 
-        nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=500, node_color='skyblue', font_size=10, font_color='black', font_weight='bold')
+        nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=700, node_color='skyblue', font_size=10, font_color='black')
         nx.draw_networkx_edge_labels(self.maze_graph, pos, edge_labels=edge_labels)
         
         plt.savefig("assets/matrix_to_graph.png")

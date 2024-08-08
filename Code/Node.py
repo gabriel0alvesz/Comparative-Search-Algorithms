@@ -1,13 +1,12 @@
 class Node:
     weight: float
-    value: int
+    obstacle: int
     position_x: int
     position_y: int
     name: str
 
-    def __init__(self, weight: float, value: int, x: int, y: int):
-        self.weight = weight
-        self.value = value
+    def __init__(self, weight: float, x: int, y: int):
+        self.weight = weight 
         self.position_x = x
         self.position_y = y
         self.name = f"{self.position_x},{self.position_y}"
