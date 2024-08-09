@@ -64,6 +64,7 @@ class Generate:
         distance = mh.sqrt( ((goal_position - node_actual.position_x)**2) + ((goal_position - node_actual.position_y)**2))
 
         return distance;
+    
         
 if __name__ == "__main__":
 
