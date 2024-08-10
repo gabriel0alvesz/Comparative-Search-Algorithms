@@ -32,7 +32,7 @@ class Maze:
         
         aux_matrix = list()
         
-        file_name = f"./Mazes/maze_{num_file}.txt"
+        file_name = f"../Mazes/maze_{num_file}.txt"
         try:
             with open(file_name, 'r') as file:
                 for line in file:

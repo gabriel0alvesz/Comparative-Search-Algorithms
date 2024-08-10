@@ -109,8 +109,7 @@ class Generate:
         while open_set:
             # Tupla de proriade e proximo nó
             priority, current = heapq.heappop(open_set)
-
-            
+ 
             if current == goal:
                 # Reconstrói o caminho do objetivo até o início
                 path = []
@@ -147,15 +146,31 @@ class Generate:
             possible = "Não é possível"
         
         print(possible)
+
+    def dfs(self,initial_position: tuple, finish_position: tuple):
+
+        self.edges_graph_without_obstacle()
         
+        start = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == initial_position)
+        goal = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == finish_position)
+        
+        aux_bfs = nx.dfs_tree(self.maze_graph,start)
+        
+        try:
+            next(node for node in aux_bfs.nodes if node == goal)
+            possible = "É possível"
+        except:
+            possible = "Não é possível"
+        
+        print(possible)
                 
 if __name__ == "__main__":
 
     gerador = Generate(10)
 
-    gerador.generate_graph(1)
+    gerador.generate_graph(6)
     
-    gerador.bfs((0,0),(9,9))
+    gerador.dfs((0,0),(9,9))
     # gerador.edges_graph()
 
     # teste = gerador.greedy_search((0,0), (9,9))
