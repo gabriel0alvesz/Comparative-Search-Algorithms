@@ -1,5 +1,5 @@
 import networkx as nx
-import math as mh
+import heapq
 import matplotlib.pyplot as plt
 from Maze import Maze
 from Node import Node
@@ -85,20 +85,61 @@ class Generate:
         nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=400, node_color='skyblue', font_size=10, font_color='black')
         nx.draw_networkx_edge_labels(self.maze_graph, pos, edge_labels=edge_labels)
         
-        plt.savefig(f"./assets/graph_{num}.png")
 
-    def euclidean_distance_heuristic(self, node_actual: Node):
-        goal_position = self.size_maze-1
-        distance = mh.sqrt( ((goal_position - node_actual.position_x)**2) + ((goal_position - node_actual.position_y)**2))
+        plt.savefig("../assets/matrix_to_graph.png")
+        
 
-        return distance;
+    def manhattan_distance_heuristic(self, node_actual: Node, goal_position: Node):
+        distance = abs(goal_position.position_x - node_actual.position_x) + abs(goal_position.position_y - node_actual.position_y)
+        return distance
+    
+    def greedy_search(self, initial_position: tuple, finish_position: tuple):
+        
+        start = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == initial_position)
+        goal = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == finish_position)
+
+        # Fila de prioridade 
+        open_set = []
+        heapq.heappush(open_set, (0, start))
+
+        # Rastrear o caminho
+        came_from = dict()
+        came_from[start] = None
+
+        while open_set:
+            # Tupla de proriade e proximo nó
+            priority, current = heapq.heappop(open_set)
+
+            
+            if current == goal:
+                # Reconstrói o caminho do objetivo até o início
+                path = []
+                while current:
+                    path.append(current)
+                    current = came_from[current]
+                return path[::-1]  # Retorna o caminho na ordem correta
+
+            # vizinhos do nó atual
+            for neighbor in self.maze_graph.neighbors(current):
+                if neighbor.obstacle != -1 and neighbor not in came_from:
+                    
+                    priority = self.manhattan_distance_heuristic(neighbor, goal)
+                    
+                    heapq.heappush(open_set, (priority, neighbor))
+                    came_from[neighbor] = current
+
+        return None
+
     
         
 if __name__ == "__main__":
 
     gerador = Generate(10)
 
-    gerador.generate_graph()
+    gerador.generate_graph(1)
     gerador.edges_graph()
 
+    teste = gerador.greedy_search((0,0), (9,9))
+    
+    print(teste)
     gerador.print_graph()
