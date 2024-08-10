@@ -74,7 +74,7 @@ class Generate:
                         if neighbor.obstacle != -1:
                             self.maze_graph.add_edge(node, neighbor)
 
-    def print_graph(self,num):
+    def print_graph(self):
         plt.figure()
 
         # Necessário usar desta forma as posições devido ao matplotlib
@@ -131,15 +131,34 @@ class Generate:
         return None
 
     
+    def bfs(self,initial_position: tuple, finish_position: tuple):
         
+        self.edges_graph_without_obstacle()
+        
+        start = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == initial_position)
+        goal = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == finish_position)
+        
+        aux_bfs = nx.bfs_tree(self.maze_graph,start)
+        
+        try:
+            next(node for node in aux_bfs.nodes if node == goal)
+            possible = "É possível"
+        except:
+            possible = "Não é possível"
+        
+        print(possible)
+        
+                
 if __name__ == "__main__":
 
     gerador = Generate(10)
 
     gerador.generate_graph(1)
-    gerador.edges_graph()
-
-    teste = gerador.greedy_search((0,0), (9,9))
     
-    print(teste)
-    gerador.print_graph()
+    gerador.bfs((0,0),(9,9))
+    # gerador.edges_graph()
+
+    # teste = gerador.greedy_search((0,0), (9,9))
+    
+    # print(teste)
+    # gerador.print_graph()
