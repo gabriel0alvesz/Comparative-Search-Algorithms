@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
         try: 
             with open(name, 'w') as file:
-                file.write(str(SIZE_MAZE)+"\n")
+                # file.write(str(SIZE_MAZE)+"\n")
 
                 maze_matrix = [[0 for _ in range(0, SIZE_MAZE)] for _ in range(0, SIZE_MAZE)]
 
