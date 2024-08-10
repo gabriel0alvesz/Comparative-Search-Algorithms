@@ -23,6 +23,12 @@ class Node:
     def __str__(self):
         return f"(x:{self.position_x}, y:{self.position_y})"
     
+    def __repr__(self) -> str:
+        return f"(x:{self.position_x}, y:{self.position_y})"
+    
+    def __lt__(self, other):
+        return (self.position_x, self.position_y) < (other.position_x, other.position_y)
+    
     def name_main(self) -> str:
         return f"{self.position_x},{self.position_y}"
     
