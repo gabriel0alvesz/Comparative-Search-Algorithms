@@ -22,7 +22,6 @@ class Generate:
 
         for i in range(0, self.size_maze):
             for j in range(0, self.size_maze):
-               
                 temp_node = self.maze_matrix[i][j]
                 self.maze_graph.add_node(temp_node, label=temp_node.name)
                 self.positions_node[(i,j)] = temp_node
@@ -45,9 +44,39 @@ class Generate:
                 if j < self.size_maze-1:  # direita
                     neighbor = self.positions_node[(i, j + 1)]
                     self.maze_graph.add_edge(node, neighbor)
-    
-    def print_graph(self):
-        
+
+    def edges_graph_without_obstacle(self):
+        for i in range(0, self.size_maze):
+            for j in range(0, self.size_maze):
+                node = self.positions_node[(i, j)]
+                if node.obstacle != -1:
+                    # Verifica o vizinho acima
+                    if i > 0:
+                        neighbor = self.positions_node[(i - 1, j)]
+                        if neighbor.obstacle != -1:
+                            self.maze_graph.add_edge(node, neighbor)
+                    
+                    # Verifica o vizinho abaixo
+                    if i < self.size_maze - 1:
+                        neighbor = self.positions_node[(i + 1, j)]
+                        if neighbor.obstacle != -1:
+                            self.maze_graph.add_edge(node, neighbor)
+                    
+                    # Verifica o vizinho à esquerda
+                    if j > 0:
+                        neighbor = self.positions_node[(i, j - 1)]
+                        if neighbor.obstacle != -1:
+                            self.maze_graph.add_edge(node, neighbor)
+                    
+                    # Verifica o vizinho à direita
+                    if j < self.size_maze - 1:
+                        neighbor = self.positions_node[(i, j + 1)]
+                        if neighbor.obstacle != -1:
+                            self.maze_graph.add_edge(node, neighbor)
+
+    def print_graph(self,num):
+        plt.figure()
+
         # Necessário usar desta forma as posições devido ao matplotlib
         pos = {node: (node.position_y, -node.position_x) for node in self.maze_graph.nodes}
         labels = {node: node.repr_obstacle() for node in self.maze_graph.nodes}
@@ -56,6 +85,7 @@ class Generate:
         nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=400, node_color='skyblue', font_size=10, font_color='black')
         nx.draw_networkx_edge_labels(self.maze_graph, pos, edge_labels=edge_labels)
         
+
         plt.savefig("../assets/matrix_to_graph.png")
         
 

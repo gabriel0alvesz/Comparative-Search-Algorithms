@@ -32,10 +32,9 @@ class Maze:
         
         aux_matrix = list()
         
-        file_name = f"../Mazes/maze_{num_file}.txt"
+        file_name = f"./Mazes/maze_{num_file}.txt"
         try:
             with open(file_name, 'r') as file:
-                
                 for line in file:
                     
                     line_file = list(map(int, line.split()))
@@ -57,11 +56,6 @@ class Maze:
 
                     self._matrix_maze[i][j].obstacle = aux_matrix[i][j]
 
-        
-                
-                
-         
-
 if __name__ == "__main__":
 
     labirinto = Maze(10)
@@ -69,4 +63,3 @@ if __name__ == "__main__":
     labirinto.build_maze(31)
 
     labirinto.print_maze()
-     
