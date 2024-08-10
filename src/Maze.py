@@ -1,6 +1,8 @@
 import random
 from Node import Node
 
+QTD_MAZES = 50
+
 class Maze:
 
     _size: int
@@ -23,26 +25,39 @@ class Maze:
     def print_maze(self):
         for line in self._matrix_maze:
             for node in line:
-                print(f"{node.name_main()}",end="  ",)
+                print(f"{node.repr_obstacle()}",end="  ",)
             print()
     
-    
-    def generate_obstacles(self):
-        """Faz 60% da Matriz se tornar obstaculos"""    
+    def build_maze(self, num_file: int) -> list:
         
-        cont: int = 0
-        aux_dict: dict = {(0,0): True, (9,9): True} # (0,0) -> começa no labirinto e (9,9) -> sai do labirinto
-
-        while cont < ((self.get_size()**2)*0.6):
-            line_num = random.randint(0, 9)
-            column_num = random.randint(0, 9)
-
-            if aux_dict.get((line_num,column_num)) != True:
-                cont += 1
+        aux_matrix = list()
+        
+        file_name = f"../Mazes/maze_{num_file}.txt"
+        try:
+            with open(file_name, 'r') as file:
                 
-                ## Como fazer o nó que será obstaculo, assumir o -1 e o name alterar
-                temp_node: Node = Node(0, -1, line_num,column_num);
-                self._matrix_maze[line_num][column_num] = temp_node
+                for line in file:
+                    
+                    line_file = list(map(int, line.split()))
+                    aux_matrix.append(line_file)
+        except:
+            print("Erro ao abir o arquivo!")
+
+        self.create_maze_nodes(aux_matrix)
+        
+            
+    def create_maze_nodes(self, aux_matrix: list):
+        
+        if self._size != len(aux_matrix):
+            print("tamanhos diferentes")
+        else:
+            
+            for i in range(0, self._size):
+                for j in range(0, self._size):
+
+                    self._matrix_maze[i][j].obstacle = aux_matrix[i][j]
+
+        
                 
                 
          
@@ -51,6 +66,7 @@ if __name__ == "__main__":
 
     labirinto = Maze(10)
 
-    labirinto.generate_obstacles()
+    labirinto.build_maze(31)
+
     labirinto.print_maze()
      

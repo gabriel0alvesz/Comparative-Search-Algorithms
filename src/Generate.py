@@ -15,9 +15,9 @@ class Generate:
         self.positions_node = dict()
         self.maze_graph = nx.Graph()
     
-    def generate_graph(self):
+    def generate_graph(self, num_file: int):
         
-        self.maze_matrix.generate_obstacles() # gera os obstaculos da matriz
+        self.maze_matrix.build_maze(num_file=num_file)
         # self.maze_matrix.print_maze()
 
         for i in range(0, self.size_maze):
@@ -50,13 +50,13 @@ class Generate:
         
         # Necessário usar desta forma as posições devido ao matplotlib
         pos = {node: (node.position_y, -node.position_x) for node in self.maze_graph.nodes}
-        labels = {node: node.name_main() for node in self.maze_graph.nodes}
+        labels = {node: node.repr_obstacle() for node in self.maze_graph.nodes}
         edge_labels = nx.get_edge_attributes(self.maze_graph, 'weight')
 
-        nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=500, node_color='skyblue', font_size=8, font_color='black')
+        nx.draw(self.maze_graph, pos, labels=labels, with_labels=True, node_size=400, node_color='skyblue', font_size=10, font_color='black')
         nx.draw_networkx_edge_labels(self.maze_graph, pos, edge_labels=edge_labels)
         
-        plt.savefig("assets/matrix_to_graph.png")
+        plt.savefig("../assets/matrix_to_graph.png")
         plt.show()
 
     def euclidean_distance_heuristic(self, node_actual: Node):

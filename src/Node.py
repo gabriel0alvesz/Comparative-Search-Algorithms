@@ -24,4 +24,7 @@ class Node:
         return f"(x:{self.position_x}, y:{self.position_y})"
     
     def name_main(self) -> str:
-        return f"{self.position_x},{self.position_y}\n{self.obstacle}"
+        return f"{self.position_x},{self.position_y}"
+    
+    def repr_obstacle(self) -> str:
+        return f"{self.obstacle}"
