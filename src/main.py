@@ -46,7 +46,7 @@ def test_greedy(test_range, start, goal):
         gerador = Generate.Generate(10)
         gerador.generate_graph(i)
         gerador.edges_graph()
-        print(gerador.greedy_search(start, goal))
+        gerador.greedy_search(start, goal)
     
 @timeit
 @memory_usage
@@ -57,6 +57,7 @@ def test_a_star(test_range, start, goal):
         gerador.a_star(start, goal)
 
 if __name__ == "__main__":
+# Gera dados de tempo gasto e uso de memória
 
     # BFS
     print('BFS: ')

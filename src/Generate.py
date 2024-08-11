@@ -116,7 +116,7 @@ class Generate:
                 while current:
                     path.append(current)
                     current = came_from[current]
-                return path[::-1]  # Retorna o caminho na ordem correta
+                return "OK" #path[::-1]  # Retorna o caminho na ordem correta
 
             # vizinhos do nó atual
             for neighbor in self.maze_graph.neighbors(current):
@@ -141,7 +141,7 @@ class Generate:
             caminho = nx.astar_path(self.maze_graph, start, goal, self.manhattan_distance_heuristic)
         except:
             caminho = "Não é possível"
-        print(caminho)
+        # print(caminho)
 
 
     def bfs(self,initial_position: tuple, finish_position: tuple):
@@ -159,7 +159,7 @@ class Generate:
         except:
             possible = "Não é possível"
         
-        print(possible)
+        # print(possible)
 
     def dfs(self,initial_position: tuple, finish_position: tuple):
 
@@ -176,7 +176,7 @@ class Generate:
         except:
             possible = "Não é possível"
         
-        print(possible)
+        # print(possible)
                 
 if __name__ == "__main__":
 
