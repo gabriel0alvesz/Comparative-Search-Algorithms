@@ -86,7 +86,7 @@ class Generate:
         nx.draw_networkx_edge_labels(self.maze_graph, pos, edge_labels=edge_labels)
         
 
-        plt.savefig("../assets/matrix_to_graph.png")
+        plt.savefig("./assets/matrix_to_graph.png")
         
 
     def manhattan_distance_heuristic(self, node_actual: Node, goal_position: Node):
@@ -130,7 +130,21 @@ class Generate:
 
         return None
 
-    
+
+    def a_star(self, initial_position: tuple, finish_position: tuple):
+        
+        self.edges_graph_without_obstacle()
+        
+        start = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == initial_position)
+        goal = next(node for node in self.maze_graph.nodes if (node.position_x, node.position_y) == finish_position)
+
+        try:
+            caminho = nx.astar_path(self.maze_graph, start, goal, self.manhattan_distance_heuristic)
+        except:
+            caminho = "Não é possível"
+        print(caminho)
+
+
     def bfs(self,initial_position: tuple, finish_position: tuple):
         
         self.edges_graph_without_obstacle()
@@ -153,12 +167,8 @@ if __name__ == "__main__":
 
     gerador = Generate(10)
 
-    gerador.generate_graph(1)
+    gerador.generate_graph(2)
     
-    gerador.bfs((0,0),(9,9))
-    # gerador.edges_graph()
-
-    # teste = gerador.greedy_search((0,0), (9,9))
+    gerador.a_star((0,0), (9,9))
     
-    # print(teste)
-    # gerador.print_graph()
+    gerador.print_graph()
